@@ -22,8 +22,8 @@ declare module 'mineflayer' {
     }
 
     interface BotEvents {
-        ci_startputting: () => void
-        ci_finishedputting: (putItems: Item) => void
+        ci_startputting: (putItems: Item[]) => void
+        ci_finishedputting: (putItems: Item[]) => void
         ci_error: (error?: Error) => void
     }
 }
@@ -65,7 +65,7 @@ export function plugin(bot: mineflayer.Bot){
             bot.ci.isPutting = true
             dontputcloudinventory=true
             bot.chat("/ci put")
-            bot.emit("ci_startputting")
+            bot.emit("ci_startputting", put_items)
         }
     })
 
@@ -97,6 +97,7 @@ export function plugin(bot: mineflayer.Bot){
             // 这个应该不会报错
         }
         bot.ci.isPutting = false
+        bot.emit("ci_finishedputting", put_items)
         // 解除速度限制
         setTimeout(() => {
             dontputcloudinventory=false
