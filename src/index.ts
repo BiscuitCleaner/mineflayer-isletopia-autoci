@@ -31,8 +31,6 @@ declare module 'mineflayer' {
 // 防止物品存入云仓的速度太快，导致反作弊踢出
 var dontputcloudinventory = false
 export function plugin(bot: mineflayer.Bot){
-    bot.ci = {}
-
     bot.ci.disabled = true
     bot.ci.isPutting = false
 
@@ -91,6 +89,7 @@ export function plugin(bot: mineflayer.Bot){
         })
         // 关闭窗口
         try{
+            // @ts-ignore
             window.close()
         } catch (err){
             // console.log(err)
